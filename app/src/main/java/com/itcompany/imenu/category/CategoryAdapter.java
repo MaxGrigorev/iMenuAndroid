@@ -64,7 +64,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         public ViewHolder(View itemView) {
             super(itemView);
             // проставляем данные для элементов
-            categoryName = (TextView)itemView.findViewById(R.id.tvCategoryName);
+            categoryName = (TextView)itemView.findViewById(R.id.tvCategoryName );
             categoryVal = (TextView)itemView.findViewById(R.id.tvCategoryVal);
             categoryImage = (ImageView)itemView.findViewById(R.id.ivCategoryImage);
             Log.d("mylog", "ada 7");
