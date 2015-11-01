@@ -1,10 +1,12 @@
-package com.itcompany.imenu.category;
+package com.itcompany.imenu.dish;
 
 
 import android.os.AsyncTask;
 import android.util.Log;
 
-
+import com.itcompany.imenu.AsyncTaskResult;
+import com.itcompany.imenu.CategoryDish;
+import com.itcompany.imenu.Dish;
 
 import org.jsoup.Connection;
 import org.jsoup.HttpStatusException;
@@ -12,26 +14,22 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import com.itcompany.imenu.AsyncTaskResult;
-import com.itcompany.imenu.CategoryDish;
-import com.itcompany.imenu.Dish;
-import com.itcompany.imenu.R;
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * Created by Max on 24.03.2015.
  */
-public class CategoryAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult<ArrayList<CategoryDish>>> {
+public class DishAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult<ArrayList<CategoryDish>>> {
     public AsyncResponse response=null;
     String result;
 
-    ArrayList<CategoryDish> categoryDishArrayList ;
+    ArrayList<CategoryDish> categoryDishArrayList = new ArrayList<CategoryDish>();
 
     CategoryDish categoryDish;
 
 
-    public CategoryAsyncTask(AsyncResponse response) {
+    public DishAsyncTask(AsyncResponse response) {
        this.response=response;
     }
 
@@ -72,11 +70,10 @@ public class CategoryAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult<Arr
 
             for(int a=0; a<elementsCategoryDish.size(); a++){
                 categoryDish = new CategoryDish();
+                dishArrayList = new ArrayList<Dish>();
                 categoryDish.setCategoryName(elementsCategoryDish.eq(a).text());
                 categoryDishHref=elementsCategoryDish.eq(a).attr("href");
                 categoryDish.setCategoryHref(categoryDishHref);
-                categoryDish.save();
-                /*
                 Log.d("mylog", "href " + elementsCategoryDish.eq(a).attr("href"));
                 //Проходимся по ссылкам категории
                 conJs=Jsoup.connect("http://sushi.s-pom.ru" + categoryDishHref);
@@ -117,9 +114,8 @@ public class CategoryAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult<Arr
 
                 categoryDishArrayList.add(categoryDish);
                 //Log.d("mylog", "fgat " +goodsOldPrices.eq(a).text());
-                */
             }
-            //asyncTaskResult.setResult(categoryDishArrayList);
+            asyncTaskResult.setResult(categoryDishArrayList);
 
         }
         catch (HttpStatusException e) {
@@ -149,8 +145,7 @@ public class CategoryAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult<Arr
         //отправляем данные в баркод
         switch(result.getError()) {
             case 0:
-
-                response.processFinish();
+                response.processFinish(result.getResult());
                 break;
             case 1:
                 break;
@@ -170,7 +165,7 @@ public class CategoryAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult<Arr
     }
 
     public interface AsyncResponse {
-        void processFinish();
+        void processFinish(ArrayList<CategoryDish> output);
         void hostOffline();
     }
 

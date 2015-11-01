@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.itcompany.imenu.category;
+package com.itcompany.imenu.dish;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +25,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.itcompany.imenu.CategoryDish;
 import com.itcompany.imenu.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -34,13 +33,12 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Adapter for the planet data used in our drawer menu,
  */
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
-    private List<CategoryDish> arrayListCategoryDish;
+public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
+    private ArrayList<CategoryDish> arrayListCategoryDish;
     private OnItemClickListener mListener;
     private DisplayImageOptions options;
     private Context context;
@@ -56,9 +54,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
      * Custom viewholder for our planet views.
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView categoryName;
-        public final TextView categoryVal;
-        public final ImageView categoryImage;
+        //public final TextView categoryName;
+        //public final TextView categoryVal;
+        //public final ImageView categoryImage;
 
         // проставляем данные для элементов
 
@@ -72,10 +70,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
     }
 
-    public CategoryAdapter(Context context) {
+    public DishAdapter(Context context, ArrayList<CategoryDish> arrayListCategoryDish, OnItemClickListener listener) {
         Log.d("mylog", "ada 6");
-
-        this.arrayListCategoryDish = CategoryDish.listAll(CategoryDish.class);;
+        this.arrayListCategoryDish = arrayListCategoryDish;
+        this.mListener = listener;
         this.context = context;
         Log.d("mylog", "ada 66");
     }
@@ -86,6 +84,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         LayoutInflater vi = LayoutInflater.from(parent.getContext());
         View v = vi.inflate(R.layout.drawer_list_item, parent, false);
         Log.d("mylog", "ada 55");
+
+
+
         return new ViewHolder(v);
     }
 
@@ -93,31 +94,26 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.ic_launcher)
-                .showImageForEmptyUri(R.drawable.ic_launcher)
-                .showImageOnFail(R.drawable.ic_launcher)
+                .showImageOnLoading(R.drawable.ic_action_barcode_1)
+                .showImageForEmptyUri(R.drawable.ic_add_circle_black_24dp)
+                .showImageOnFail(R.drawable.ic_add_circle_outline_black_24dp)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
                 .displayer(new RoundedBitmapDisplayer(20)).build();
 
         Log.d("mylog", "ada 1");
-
-
-
-
         holder.categoryName.setText(arrayListCategoryDish.get(position).getCategoryName());
-
         Log.d("mylog", "ada 11" + arrayListCategoryDish.get(position).getCategoryName());
-        //if (arrayListCategoryDish.get(position).getCategoryVal()==0){
-        //   holder.categoryVal.setText("");
-        //}else {
-        //    holder.categoryVal.setText(arrayListCategoryDish.get(position).getCategoryVal().toString());
-        //}
+        if (arrayListCategoryDish.get(position).getCategoryVal()==0){
+            holder.categoryVal.setText("");
+        }else {
+            holder.categoryVal.setText(arrayListCategoryDish.get(position).getCategoryVal().toString());
+        }
 
-        //ImageLoader imageLoader = ImageLoader.getInstance(); // Получили экземпляр
-        //imageLoader.init(ImageLoaderConfiguration.createDefault(context)); // Проинициализировали конфигом по умолчанию
-        //imageLoader.displayImage(("http://sushi.s-pom.ru"+arrayListCategoryDish.get(position).getCategoryImage()), holder.categoryImage, options);
+        ImageLoader imageLoader = ImageLoader.getInstance(); // Получили экземпляр
+        imageLoader.init(ImageLoaderConfiguration.createDefault(context)); // Проинициализировали конфигом по умолчанию
+        imageLoader.displayImage(("http://sushi.s-pom.ru"+arrayListCategoryDish.get(position).getCategoryImage()), holder.categoryImage, options);
         // Запустили асинхронный показ картинки
 
         Log.d("mylog", "ada 2");
@@ -132,7 +128,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        Log.d("mylog", "ada 4"+arrayListCategoryDish.size());
+        Log.d("mylog", "ada 4");
         return arrayListCategoryDish.size();
     }
 }

@@ -2,10 +2,12 @@ package com.itcompany.imenu;
 
 import android.util.Log;
 
+import com.orm.SugarRecord;
+
 /**
  * Created by Max on 19.05.2015.
  */
-public class Dish {
+public class Dish extends SugarRecord<Dish> {
     private String dishName;
     private String dishPrice;
     private Double dishPriceDouble;

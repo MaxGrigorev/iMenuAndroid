@@ -1,5 +1,7 @@
 package com.itcompany.imenu;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,7 +11,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import com.itcompany.imenu.category.CategoryAsyncTask;
+import com.orm.SugarRecord;
+
+public class MainActivity extends AppCompatActivity implements CategoryAsyncTask.AsyncResponse {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        CategoryAsyncTask categoryAsyncTask = new CategoryAsyncTask(this);
+        categoryAsyncTask.execute();
 
     }
 
@@ -41,4 +49,17 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void processFinish() {
+        startActivity(new Intent("com.itcompany.imenu.CATEGORY"));
+
+    }
+
+    @Override
+    public void hostOffline() {
+
+    }
+
+
 }
