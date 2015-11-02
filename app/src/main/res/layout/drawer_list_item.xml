@@ -17,19 +17,15 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="150dp"
     android:padding="1dip"
     android:weightSum="1"
     >
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:id="@+id/ivCategoryImage"
-        android:minHeight="20dp"
-        android:maxHeight="20dp"
-        android:minWidth="20dp"
-        android:maxWidth="20dp"
         android:layout_marginLeft="1dp"
         android:layout_marginRight="1dp"
         android:layout_marginBottom="1dp"
@@ -41,14 +37,17 @@
 
     <TextView
         android:id="@+id/tvCategoryName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:layout_alignParentTop="true"
+        android:textColor="#FFF"
+        android:textSize="36sp"
+        android:textStyle="bold"
         android:layout_marginLeft="1dp"
         android:typeface="sans"
         android:text="dfg"
-        android:layout_toRightOf="@id/ivCategoryImage"
+        android:background="#7000"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
         android:maxLines="1"/>
 
     <TextView

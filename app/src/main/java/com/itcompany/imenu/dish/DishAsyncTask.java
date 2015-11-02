@@ -109,7 +109,7 @@ public class DishAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult<ArrayLi
                         dishArrayList.add(dish);
                     }
                 }
-                categoryDish.setDishArrayList(dishArrayList);
+                //categoryDish.setDishArrayList(dishArrayList);
 
 
                 categoryDishArrayList.add(categoryDish);

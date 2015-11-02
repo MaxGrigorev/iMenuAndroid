@@ -63,9 +63,9 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
             // проставляем данные для элементов
-            categoryName = (TextView)itemView.findViewById(R.id.tvCategoryName );
-            categoryVal = (TextView)itemView.findViewById(R.id.tvCategoryVal);
-            categoryImage = (ImageView)itemView.findViewById(R.id.ivCategoryImage);
+            //categoryName = (TextView)itemView.findViewById(R.id.tvCategoryName );
+            //categoryVal = (TextView)itemView.findViewById(R.id.tvCategoryVal);
+            //categoryImage = (ImageView)itemView.findViewById(R.id.ivCategoryImage);
             Log.d("mylog", "ada 7");
         }
     }
@@ -92,7 +92,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-
+/*
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.ic_action_barcode_1)
                 .showImageForEmptyUri(R.drawable.ic_add_circle_black_24dp)
@@ -124,6 +124,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
             }
         });
         Log.d("mylog", "ada 3");
+        */
     }
 
     @Override
@@ -131,4 +132,5 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
         Log.d("mylog", "ada 4");
         return arrayListCategoryDish.size();
     }
+
 }
