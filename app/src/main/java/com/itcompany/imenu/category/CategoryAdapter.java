@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -33,7 +34,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,12 +59,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         public final TextView categoryName;
         public final TextView categoryVal;
         public final ImageView categoryImage;
-
+        public final RelativeLayout categoryLoyout;
         // проставляем данные для элементов
 
         public ViewHolder(View itemView) {
             super(itemView);
             // проставляем данные для элементов
+            categoryLoyout=(RelativeLayout)itemView.findViewById(R.id.rlCategoryLoyout);
             categoryName = (TextView)itemView.findViewById(R.id.tvCategoryName );
             categoryVal = (TextView)itemView.findViewById(R.id.tvCategoryVal);
             categoryImage = (ImageView)itemView.findViewById(R.id.ivCategoryImage);
@@ -72,10 +73,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
     }
 
-    public CategoryAdapter(Context context) {
+    public CategoryAdapter(Context context, OnItemClickListener listener) {
         Log.d("mylog", "ada 6");
-
-        this.arrayListCategoryDish = CategoryDish.listAll(CategoryDish.class);;
+        this.mListener = listener;
+        this.arrayListCategoryDish = CategoryDish.listAll(CategoryDish.class);
         this.context = context;
         Log.d("mylog", "ada 66");
     }
@@ -84,13 +85,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.d("mylog", "ada 5");
         LayoutInflater vi = LayoutInflater.from(parent.getContext());
-        View v = vi.inflate(R.layout.drawer_list_item, parent, false);
+        View v = vi.inflate(R.layout.category_list_item, parent, false);
         Log.d("mylog", "ada 55");
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+
 
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.ic_launcher)
@@ -105,7 +107,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
 
 
-
         holder.categoryName.setText(arrayListCategoryDish.get(position).getCategoryName());
 
         Log.d("mylog", "ada 11" + arrayListCategoryDish.get(position).getCategoryName());
@@ -115,13 +116,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         //    holder.categoryVal.setText(arrayListCategoryDish.get(position).getCategoryVal().toString());
         //}
 
-        //ImageLoader imageLoader = ImageLoader.getInstance(); // Получили экземпляр
-        //imageLoader.init(ImageLoaderConfiguration.createDefault(context)); // Проинициализировали конфигом по умолчанию
-        //imageLoader.displayImage(("http://sushi.s-pom.ru"+arrayListCategoryDish.get(position).getCategoryImage()), holder.categoryImage, options);
+        ImageLoader imageLoader = ImageLoader.getInstance(); // Получили экземпляр
+        imageLoader.init(ImageLoaderConfiguration.createDefault(context)); // Проинициализировали конфигом по умолчанию
+        imageLoader.displayImage(("http://sushi.s-pom.ru" + arrayListCategoryDish.get(position).getCategoryImage()), holder.categoryImage, options);
         // Запустили асинхронный показ картинки
 
-        Log.d("mylog", "ada 2");
-        holder.categoryName.setOnClickListener(new View.OnClickListener() {
+        Log.d("mylog", "ada 2"+arrayListCategoryDish.get(position).getCategoryImage());
+        holder.categoryLoyout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mListener.onClick(view, position);

@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements CategoryAsyncTask
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        CategoryDish.deleteAll(CategoryDish.class);
+
         CategoryAsyncTask categoryAsyncTask = new CategoryAsyncTask(this);
         categoryAsyncTask.execute();
 

@@ -17,14 +17,16 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="150dp"
+    android:layout_height="200dp"
+    android:id="@+id/rlCategoryLoyout"
     android:padding="1dip"
     android:weightSum="1"
+    android:clickable="true"
     >
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:id="@+id/ivCategoryImage"
         android:layout_marginLeft="1dp"
         android:layout_marginRight="1dp"
@@ -44,7 +46,7 @@
         android:textStyle="bold"
         android:layout_marginLeft="1dp"
         android:typeface="sans"
-        android:text="dfg"
+        android:text=""
         android:background="#7000"
         android:gravity="center"
         android:layout_alignParentBottom="true"

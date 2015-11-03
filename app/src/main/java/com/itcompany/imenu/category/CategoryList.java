@@ -7,13 +7,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.itcompany.imenu.R;
 
-public class CategoryList extends AppCompatActivity {
+public class CategoryList extends AppCompatActivity implements CategoryAdapter.OnItemClickListener  {
+
+    CategoryAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +26,13 @@ public class CategoryList extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        CategoryAdapter mAdapter = new CategoryAdapter(this);
+        mAdapter = new CategoryAdapter(this,this);
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
+
+
 
     }
 
@@ -50,5 +56,10 @@ public class CategoryList extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+        Log.d("mylog", "click");
     }
 }

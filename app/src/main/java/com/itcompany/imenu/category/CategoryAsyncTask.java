@@ -76,9 +76,17 @@ public class CategoryAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult<Arr
                 categoryDishHref=elementsCategoryDish.eq(a).attr("href");
                 categoryDish.setCategoryHref(categoryDishHref);
                 categoryDish.save();
-                /*
+
                 Log.d("mylog", "href " + elementsCategoryDish.eq(a).attr("href"));
                 //Проходимся по ссылкам категории
+                conJs=Jsoup.connect("http://sushi.s-pom.ru" + categoryDishHref);
+                doc = conJs.get();
+
+                elementsDishImg = doc.select("div#item img");//может быть одна картинка
+                categoryDish.setCategoryImage(elementsDishImg.eq(0).attr("src"));
+                Log.d("mylog", "href " + elementsDishImg.eq(0).attr("src"));
+                categoryDish.save();
+/*
                 conJs=Jsoup.connect("http://sushi.s-pom.ru" + categoryDishHref);
                 doc = conJs.get();
                 elementsDishName = doc.select("div#item li h3,div#item li h2");
