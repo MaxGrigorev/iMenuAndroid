@@ -44,6 +44,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     private OnItemClickListener mListener;
     private DisplayImageOptions options;
     private Context context;
+    private ImageLoader imageLoader;
 
     /**
      * Interface for receiving click events from cells.
@@ -79,6 +80,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         this.arrayListCategoryDish = CategoryDish.listAll(CategoryDish.class);
         this.context = context;
         Log.d("mylog", "ada 66");
+
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.ic_launcher)
+                .showImageForEmptyUri(R.drawable.ic_launcher)
+                .showImageOnFail(R.drawable.ic_launcher)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+                .displayer(new RoundedBitmapDisplayer(20)).build();
+
+        imageLoader = ImageLoader.getInstance(); // Получили экземпляр
+        imageLoader.init(ImageLoaderConfiguration.createDefault(context)); // Проинициализировали конфигом по умолчанию
     }
 
     @Override
@@ -94,14 +107,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
 
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.ic_launcher)
-                .showImageForEmptyUri(R.drawable.ic_launcher)
-                .showImageOnFail(R.drawable.ic_launcher)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .considerExifParams(true)
-                .displayer(new RoundedBitmapDisplayer(20)).build();
+
 
         Log.d("mylog", "ada 1");
 
@@ -116,8 +122,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         //    holder.categoryVal.setText(arrayListCategoryDish.get(position).getCategoryVal().toString());
         //}
 
-        ImageLoader imageLoader = ImageLoader.getInstance(); // Получили экземпляр
-        imageLoader.init(ImageLoaderConfiguration.createDefault(context)); // Проинициализировали конфигом по умолчанию
+
         imageLoader.displayImage(("http://sushi.s-pom.ru" + arrayListCategoryDish.get(position).getCategoryImage()), holder.categoryImage, options);
         // Запустили асинхронный показ картинки
 

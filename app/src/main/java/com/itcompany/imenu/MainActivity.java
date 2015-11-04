@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,9 +21,11 @@ public class MainActivity extends AppCompatActivity implements CategoryAsyncTask
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+//Отчищаем таблицу Категории
         CategoryDish.deleteAll(CategoryDish.class);
-
+//Запускаем асинхронную загрузку категори
+//после загрузки запускается processFinish
+//Если нет интернета
         CategoryAsyncTask categoryAsyncTask = new CategoryAsyncTask(this);
         categoryAsyncTask.execute();
 
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAsyncTask
 
     @Override
     public void hostOffline() {
-
+        Log.d("mylog", "host ofline");
     }
 
 
