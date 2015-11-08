@@ -24,11 +24,25 @@ public class MainActivity extends AppCompatActivity implements CategoryAsyncTask
 //Отчищаем таблицу Категории
         CategoryDish.deleteAll(CategoryDish.class);
 //Запускаем асинхронную загрузку категори
-//после загрузки запускается processFinish
-//Если нет интернета
+//функции обратного вызова processFinish, hostOffline
         CategoryAsyncTask categoryAsyncTask = new CategoryAsyncTask(this);
         categoryAsyncTask.execute();
 
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        // Возобновите все приостановленные обновления UI,
+        // потоки или процессы, которые были "заморожены",
+        // когда данный объект был неактивным.
+        Log.d("mylog", "onResume");
+    }
+
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        // super.onBackPressed();
     }
 
     @Override
@@ -55,13 +69,15 @@ public class MainActivity extends AppCompatActivity implements CategoryAsyncTask
 
     @Override
     public void processFinish() {
+        Log.d("mylog", "proccesFinish");
+        Log.d("mylog", "startActivity CategoryList");
         startActivity(new Intent("com.itcompany.imenu.CATEGORY"));
 
     }
 
     @Override
     public void hostOffline() {
-        Log.d("mylog", "host ofline");
+        Log.d("mylog", "hostOffline");
     }
 
 

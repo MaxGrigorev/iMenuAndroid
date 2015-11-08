@@ -1,5 +1,6 @@
 package com.itcompany.imenu.category;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -37,6 +38,12 @@ public class CategoryList extends AppCompatActivity implements CategoryAdapter.O
     }
 
     @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        // super.onBackPressed();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -60,6 +67,7 @@ public class CategoryList extends AppCompatActivity implements CategoryAdapter.O
 
     @Override
     public void onClick(View view, int position) {
-        Log.d("mylog", "click");
+        Log.d("mylog", "click "+position);
+        startActivity(new Intent("com.itcompany.imenu.DISH"));
     }
 }

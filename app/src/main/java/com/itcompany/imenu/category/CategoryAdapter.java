@@ -40,7 +40,7 @@ import java.util.List;
  * Adapter for the planet data used in our drawer menu,
  */
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
-    private List<CategoryDish> arrayListCategoryDish;
+    private List<CategoryDish> listCategoryDish;
     private OnItemClickListener mListener;
     private DisplayImageOptions options;
     private Context context;
@@ -70,16 +70,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             categoryName = (TextView)itemView.findViewById(R.id.tvCategoryName );
             categoryVal = (TextView)itemView.findViewById(R.id.tvCategoryVal);
             categoryImage = (ImageView)itemView.findViewById(R.id.ivCategoryImage);
-            Log.d("mylog", "ada 7");
+
         }
     }
 
     public CategoryAdapter(Context context, OnItemClickListener listener) {
-        Log.d("mylog", "ada 6");
+        Log.d("mylog", "CategoryAdapter()");
         this.mListener = listener;
-        this.arrayListCategoryDish = CategoryDish.listAll(CategoryDish.class);
+        this.listCategoryDish = CategoryDish.listAll(CategoryDish.class);
         this.context = context;
-        Log.d("mylog", "ada 66");
 
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.ic_launcher)
@@ -96,49 +95,33 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.d("mylog", "ada 5");
         LayoutInflater vi = LayoutInflater.from(parent.getContext());
         View v = vi.inflate(R.layout.category_list_item, parent, false);
-        Log.d("mylog", "ada 55");
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
+        holder.categoryName.setText(listCategoryDish.get(position).getCategoryName());
+        Log.d("mylog", "Выводим " + listCategoryDish.get(position).getCategoryName());
 
-
-
-        Log.d("mylog", "ada 1");
-
-
-
-        holder.categoryName.setText(arrayListCategoryDish.get(position).getCategoryName());
-
-        Log.d("mylog", "ada 11" + arrayListCategoryDish.get(position).getCategoryName());
-        //if (arrayListCategoryDish.get(position).getCategoryVal()==0){
-        //   holder.categoryVal.setText("");
-        //}else {
-        //    holder.categoryVal.setText(arrayListCategoryDish.get(position).getCategoryVal().toString());
-        //}
-
-
-        imageLoader.displayImage(("http://sushi.s-pom.ru" + arrayListCategoryDish.get(position).getCategoryImage()), holder.categoryImage, options);
+        imageLoader.displayImage(("http://sushi.s-pom.ru" + listCategoryDish.get(position).getCategoryImage()), holder.categoryImage, options);
         // Запустили асинхронный показ картинки
 
-        Log.d("mylog", "ada 2"+arrayListCategoryDish.get(position).getCategoryImage());
+        Log.d("mylog", "Картинка "+listCategoryDish.get(position).getCategoryImage());
         holder.categoryLoyout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mListener.onClick(view, position);
             }
         });
-        Log.d("mylog", "ada 3");
+        //Log.d("mylog", "ada 3");
     }
 
     @Override
     public int getItemCount() {
-        Log.d("mylog", "ada 4"+arrayListCategoryDish.size());
-        return arrayListCategoryDish.size();
+        //Log.d("mylog", "Количество записей "+listCategoryDish.size());
+        return listCategoryDish.size();
     }
 }

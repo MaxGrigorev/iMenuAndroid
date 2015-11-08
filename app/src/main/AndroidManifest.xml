@@ -46,6 +46,24 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".dish.DishList"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".category.CategoryList">
+            <!-- Parent activity meta-data to support API level 7+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".category.CategoryList" />
+
+            <intent-filter>
+                <action android:name="com.itcompany.imenu.DISH" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+            </intent-filter>
+        </activity>
+
 
     </application>
 

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 /**
  * Created by Max on 24.03.2015.
  */
-public class DishAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult<ArrayList<CategoryDish>>> {
+public class DishAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult> {
     public AsyncResponse response=null;
     String result;
 
@@ -39,9 +39,9 @@ public class DishAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult<ArrayLi
     }
 
     @Override
-    protected AsyncTaskResult<ArrayList<CategoryDish>> doInBackground(Void... params) {
+    protected AsyncTaskResult doInBackground(Void... params) {
         //Параметры
-        AsyncTaskResult<ArrayList<CategoryDish>> asyncTaskResult=new AsyncTaskResult<ArrayList<CategoryDish>>();
+        AsyncTaskResult asyncTaskResult=new AsyncTaskResult();
         asyncTaskResult.setError(0);
         String url = "";
         Document doc = null;
@@ -115,7 +115,7 @@ public class DishAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult<ArrayLi
                 categoryDishArrayList.add(categoryDish);
                 //Log.d("mylog", "fgat " +goodsOldPrices.eq(a).text());
             }
-            asyncTaskResult.setResult(categoryDishArrayList);
+            //asyncTaskResult.setResult(categoryDishArrayList);
 
         }
         catch (HttpStatusException e) {
@@ -136,16 +136,19 @@ public class DishAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult<ArrayLi
             e.printStackTrace();
             return asyncTaskResult;
         }
-        return asyncTaskResult;
+        finally {
+            return asyncTaskResult;
+        }
+
     }
 
     @Override
-    protected void onPostExecute(AsyncTaskResult<ArrayList<CategoryDish>> result) {
+    protected void onPostExecute(AsyncTaskResult result) {
         super.onPostExecute(result);
         //отправляем данные в баркод
         switch(result.getError()) {
             case 0:
-                response.processFinish(result.getResult());
+                //response.processFinish(result.getResult());
                 break;
             case 1:
                 break;
