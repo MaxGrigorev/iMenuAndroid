@@ -18,6 +18,7 @@ import com.orm.SugarRecord;
 public class MainActivity extends AppCompatActivity implements CategoryAsyncTask.AsyncResponse {
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
