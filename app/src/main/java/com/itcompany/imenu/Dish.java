@@ -3,36 +3,32 @@ package com.itcompany.imenu;
 import android.util.Log;
 
 import com.orm.SugarRecord;
+import com.orm.dsl.Ignore;
 
 /**
  * Created by Max on 19.05.2015.
  */
 public class Dish extends SugarRecord<Dish> {
+
     private String dishName;
     private String dishPrice;
-    private Double dishPriceDouble;
     private String dishOldPrice;
-    private Double dishOldPriceDouble;
-    private Integer dishVal;
     private String dishImage;
     private String dishPreview;
     private String dishInfo;
+    private CategoryDish categoryDish;
+
+
+    @Ignore private Double dishPriceDouble;
+    @Ignore private Double dishOldPriceDouble;
+
 
     public Dish() {
-        this.dishName = "";
-        this.dishPrice = "";
-        this.dishOldPrice = "";
-        this.dishImage = "";
-        this.dishVal=1;
-        this.dishPreview="";
-        this.dishInfo="";
-
-
-
-
-
     }
 
+    public CategoryDish getCategoryDish() {
+        return categoryDish;
+    }
     public String getDishName() {
         return dishName;
     }
@@ -83,11 +79,10 @@ public class Dish extends SugarRecord<Dish> {
     public String getDishInfo() {
         return dishInfo;
     }
-    public Integer getDishVal() {
-        return dishVal;
+
+    public void setCategoryDish(CategoryDish categoryDish) {
+        this.categoryDish = categoryDish;
     }
-
-
     public void setDishName(String dishName) {
         this.dishName = dishName;
     }
@@ -126,9 +121,6 @@ public class Dish extends SugarRecord<Dish> {
         this.dishImage = dishImage;
     }
 
-    public void setDishVal(Integer dishVal) {
-        this.dishVal = dishVal;
-    }
     public void setDishPreview(String dishPreview) {
         this.dishPreview = dishPreview;
     }

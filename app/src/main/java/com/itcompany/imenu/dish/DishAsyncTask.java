@@ -16,17 +16,16 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Max on 24.03.2015.
  */
-public class DishAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult> {
+public class DishAsyncTask extends AsyncTask<Integer, Void, AsyncTaskResult> {
     public AsyncResponse response=null;
     String result;
 
-    ArrayList<CategoryDish> categoryDishArrayList = new ArrayList<CategoryDish>();
-
-    CategoryDish categoryDish;
+    Dish dish;
 
 
     public DishAsyncTask(AsyncResponse response) {
@@ -39,44 +38,29 @@ public class DishAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult> {
     }
 
     @Override
-    protected AsyncTaskResult doInBackground(Void... params) {
+    protected AsyncTaskResult doInBackground(Integer... params) {
         //Параметры
         AsyncTaskResult asyncTaskResult=new AsyncTaskResult();
         asyncTaskResult.setError(0);
         String url = "";
+        Integer position=0;
         Document doc = null;
         Connection conJs;
-        String categoryDishHref="";
         Elements elementsDishName;
         Elements elementsDishImg;
         Elements elementsDishPrice;
         Elements elementsDishInfo;
         Elements elementsDishPreview;
-        Dish dish;
-        ArrayList<Dish> dishArrayList;
 
+        if( params.length > 0 ){
+            position = params[0];
+        }
+
+        List<CategoryDish> listCategoryDish = CategoryDish.listAll(CategoryDish.class);
+        url=listCategoryDish.get(position).getCategoryHref();
         try {
-            conJs=Jsoup.connect("http://sushi.s-pom.ru/menu/");
-            doc = conJs.get();
-
-            Elements elementsCategoryDish = doc.select("div#left-sidebar a");
-            //Log.d("mylog", "fgat " +goodsNames.toString());
-            //Elements goodsPrices = doc.select("div.goodsPrice");
-            //Elements goodsOldPrices = doc.select("div.goodsOldPrice");
-            //Elements goodsBarcode = doc.select("div.goodsBarcode");
-            //Log.d("mylog", "fgat " +goodsOldPrices.toString());
-            //Elements images = doc.select("img");
-
-
-            for(int a=0; a<elementsCategoryDish.size(); a++){
-                categoryDish = new CategoryDish();
-                dishArrayList = new ArrayList<Dish>();
-                categoryDish.setCategoryName(elementsCategoryDish.eq(a).text());
-                categoryDishHref=elementsCategoryDish.eq(a).attr("href");
-                categoryDish.setCategoryHref(categoryDishHref);
-                Log.d("mylog", "href " + elementsCategoryDish.eq(a).attr("href"));
                 //Проходимся по ссылкам категории
-                conJs=Jsoup.connect("http://sushi.s-pom.ru" + categoryDishHref);
+                conJs=Jsoup.connect("http://sushi.s-pom.ru" + url);
                 doc = conJs.get();
                 elementsDishName = doc.select("div#item li h3,div#item li h2");
                 elementsDishImg = doc.select("div#item img");//может быть одна картинка
@@ -85,38 +69,30 @@ public class DishAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult> {
                 elementsDishPreview = doc.select("div#item li p.product-preview");
 
                 if (elementsDishImg.size()==1){
-                    categoryDish.setCategoryImage(elementsDishImg.eq(0).attr("src"));
                     for(int i=0; i<elementsDishName.size(); i++){
                         dish=new Dish();
                         dish.setDishName(elementsDishName.eq(i).text());
+                        Log.d("mylog1", "dish name " + elementsDishName.eq(i).text());
                         dish.setDishImage(elementsDishImg.eq(0).attr("src"));
                         dish.setDishPrice(elementsDishPrice.eq(i).text());
                         Log.d("mylog1", "dish price " + elementsDishPrice.eq(i).text());
                         dish.setDishInfo(elementsDishInfo.eq(i).text());
                         dish.setDishPreview(elementsDishPreview.eq(i).text());
-                        dishArrayList.add(dish);
+                        dish.save();
                     }
 
                 }else{
-                    categoryDish.setCategoryImage(elementsDishImg.eq(0).attr("src"));
                     for(int i=0; i<elementsDishName.size(); i++){
                         dish=new Dish();
                         dish.setDishName(elementsDishName.eq(i).text());
+                        Log.d("mylog1", "dish name " + elementsDishName.eq(i).text());
                         dish.setDishImage(elementsDishImg.eq(i).attr("src"));
                         dish.setDishPrice(elementsDishPrice.eq(i).text());
                         dish.setDishInfo(elementsDishInfo.eq(i).text());
                         dish.setDishPreview(elementsDishPreview.eq(i).text());
-                        dishArrayList.add(dish);
+                        dish.save();
                     }
                 }
-                //categoryDish.setDishArrayList(dishArrayList);
-
-
-                categoryDishArrayList.add(categoryDish);
-                //Log.d("mylog", "fgat " +goodsOldPrices.eq(a).text());
-            }
-            //asyncTaskResult.setResult(categoryDishArrayList);
-
         }
         catch (HttpStatusException e) {
             asyncTaskResult.setError(1);
@@ -148,7 +124,7 @@ public class DishAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult> {
         //отправляем данные в баркод
         switch(result.getError()) {
             case 0:
-                //response.processFinish(result.getResult());
+                response.processFinish();
                 break;
             case 1:
                 break;
@@ -167,8 +143,9 @@ public class DishAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult> {
         super.onCancelled();
     }
 
+
     public interface AsyncResponse {
-        void processFinish(ArrayList<CategoryDish> output);
+        void processFinish();
         void hostOffline();
     }
 

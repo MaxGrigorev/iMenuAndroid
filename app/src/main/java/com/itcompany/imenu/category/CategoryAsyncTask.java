@@ -22,7 +22,7 @@ import java.util.ArrayList;
 /**
  * Created by Max on 24.03.2015.
  */
-public class CategoryAsyncTask extends AsyncTask<Void, CategoryDish, AsyncTaskResult> {
+public class CategoryAsyncTask extends AsyncTask<Void, Void, AsyncTaskResult> {
     public AsyncResponse response=null;
     String result;
 
@@ -47,6 +47,7 @@ public class CategoryAsyncTask extends AsyncTask<Void, CategoryDish, AsyncTaskRe
         Connection conJs;
         String categoryDishHref="";
         Elements elementsDishImg;
+
 
 
         try {

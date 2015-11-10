@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2014 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="200dp"
+    android:id="@+id/rlDishLoyout"
+    android:padding="1dip"
+    android:weightSum="1"
+    android:clickable="true"
+    >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/ivDishImage"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="1dp"
+        android:visibility="visible"
+        android:layout_centerVertical="true"
+        android:background="#FFFFFF"
+        />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:id="@+id/rlDishDataLoyout"
+        android:padding="1dip"
+        android:clickable="true"
+        android:background="#7000"
+        android:layout_alignParentBottom="true">
+
+
+    <TextView
+        android:id="@+id/tvDishName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFF"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        android:text="fdgedrfg"
+        android:gravity="center"
+        android:maxLines="1"
+        android:layout_above="@+id/tvPrice"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/tvPrice"
+        android:textSize="30dp"
+        android:textColor="#ffff1000"
+        android:text="13"
+        android:layout_alignLeft="@id/tvDishName"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_toRightOf="@id/tvPrice"
+        android:layout_alignTop="@id/tvPrice"
+        android:id="@+id/tvPriceCent"
+        android:textSize="15dp"
+        android:textColor="#ffff1000"
+        android:text="50"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_toRightOf="@id/tvPriceCent"
+        android:layout_alignTop="@id/tvPrice"
+        android:layout_marginLeft="30dp"
+        android:id="@+id/tvOldPrice"
+        android:textSize="30dp"
+        android:textColor="#ff70716f"
+        android:text="13" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_toRightOf="@id/tvOldPrice"
+        android:layout_alignTop="@id/tvOldPrice"
+        android:id="@+id/tvOldPriceCent"
+        android:textSize="15dp"
+        android:textColor="#ff70716f"
+        android:text="50"/>
+
+    <View
+        android:layout_width="wrap_content"
+        android:background="@drawable/shape_line"
+        android:layout_height="5dp"
+        android:layout_alignLeft="@id/tvOldPrice"
+        android:layout_alignBottom="@id/tvOldPrice"
+        android:layout_alignRight="@id/tvOldPriceCent"
+        android:layout_marginBottom="17dp"/>
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

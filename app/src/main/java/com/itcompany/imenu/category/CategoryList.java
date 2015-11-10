@@ -67,7 +67,13 @@ public class CategoryList extends AppCompatActivity implements CategoryAdapter.O
 
     @Override
     public void onClick(View view, int position) {
-        Log.d("mylog", "click "+position);
-        startActivity(new Intent("com.itcompany.imenu.DISH"));
+        Log.d("mylog", "click " + position);
+
+        Intent intent=new Intent("com.itcompany.imenu.DISH");
+
+        // в ключ username пихаем текст из первого текстового поля
+        intent.putExtra("position", position);
+
+        startActivity(intent);
     }
 }

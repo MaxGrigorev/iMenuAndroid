@@ -5,18 +5,34 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.itcompany.imenu.R;
 
-public class DishList extends AppCompatActivity {
+import com.itcompany.imenu.CategoryDish;
+import com.itcompany.imenu.Dish;
+import com.itcompany.imenu.R;
+import com.itcompany.imenu.category.CategoryAdapter;
+import com.itcompany.imenu.category.CategoryAsyncTask;
+
+import java.util.ArrayList;
+
+public class DishList extends AppCompatActivity implements DishAsyncTask.AsyncResponse, DishAdapter.OnItemClickListener {
+
+    DishAdapter mAdapter;
+    RecyclerView mRecyclerView;
+    Integer position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.category);
+
+        position=getIntent().getIntExtra("position", 0);
+
+        setContentView(R.layout.dish);
         //getActionBar().setDisplayHomeAsUpEnabled(true);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -31,6 +47,15 @@ public class DishList extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
+        //Отчищаем таблицу Блюда
+        Dish.deleteAll(Dish.class);
+//Запускаем асинхронную загрузку блюда
+//функции обратного вызова processFinish, hostOffline
+        DishAsyncTask dishAsyncTask = new DishAsyncTask(this);
+        dishAsyncTask.execute(position);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
     }
 
     @Override
@@ -53,5 +78,24 @@ public class DishList extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+
+    }
+
+    @Override
+    public void processFinish() {
+        mAdapter = new DishAdapter(this,this);
+        // Set CustomAdapter as the adapter for RecyclerView.
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void hostOffline() {
+
     }
 }

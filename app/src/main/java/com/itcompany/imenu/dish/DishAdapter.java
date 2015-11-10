@@ -22,21 +22,30 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.itcompany.imenu.CategoryDish;
+import com.itcompany.imenu.Dish;
 import com.itcompany.imenu.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Adapter for the planet data used in our drawer menu,
  */
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
-    private ArrayList<CategoryDish> arrayListCategoryDish;
+    private List<Dish> listDish;
     private OnItemClickListener mListener;
     private DisplayImageOptions options;
     private Context context;
+    private ImageLoader imageLoader;
 
     /**
      * Interface for receiving click events from cells.
@@ -49,83 +58,80 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
      * Custom viewholder for our planet views.
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        //public final TextView categoryName;
-        //public final TextView categoryVal;
-        //public final ImageView categoryImage;
+        public final TextView dishName;
+        public final TextView priceRub;
+        public final TextView priceCent;
+        public final TextView oldPriceRub;
+        public final TextView oldPriceCent;
+        public final ImageView dishImage;
+        public final RelativeLayout dishLoyout;
+
 
         // проставляем данные для элементов
 
         public ViewHolder(View itemView) {
             super(itemView);
             // проставляем данные для элементов
-            //categoryName = (TextView)itemView.findViewById(R.id.tvCategoryName );
-            //categoryVal = (TextView)itemView.findViewById(R.id.tvCategoryVal);
-            //categoryImage = (ImageView)itemView.findViewById(R.id.ivCategoryImage);
-            Log.d("mylog", "ada 7");
+            dishName = (TextView)itemView.findViewById(R.id.tvDishName);
+            priceRub = (TextView)itemView.findViewById(R.id.tvPrice);
+            priceCent = (TextView)itemView.findViewById(R.id.tvPriceCent);
+            oldPriceRub = (TextView)itemView.findViewById(R.id.tvOldPrice);
+            oldPriceCent = (TextView)itemView.findViewById(R.id.tvOldPriceCent);
+            dishLoyout=(RelativeLayout)itemView.findViewById(R.id.rlDishLoyout);
+            dishImage = (ImageView)itemView.findViewById(R.id.ivDishImage);
+
         }
     }
 
-    public DishAdapter(Context context, ArrayList<CategoryDish> arrayListCategoryDish, OnItemClickListener listener) {
-        Log.d("mylog", "ada 6");
-        this.arrayListCategoryDish = arrayListCategoryDish;
+    public DishAdapter(Context context, OnItemClickListener listener) {
+        Log.d("mylog", "DishAdapter()");
         this.mListener = listener;
+        this.listDish = Dish.listAll(Dish.class);
         this.context = context;
-        Log.d("mylog", "ada 66");
-    }
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.d("mylog", "ada 5");
-        LayoutInflater vi = LayoutInflater.from(parent.getContext());
-        View v = vi.inflate(R.layout.category_list_item, parent, false);
-        Log.d("mylog", "ada 55");
-
-
-
-        return new ViewHolder(v);
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-/*
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.ic_action_barcode_1)
-                .showImageForEmptyUri(R.drawable.ic_add_circle_black_24dp)
-                .showImageOnFail(R.drawable.ic_add_circle_outline_black_24dp)
+                .showImageOnLoading(R.drawable.ic_launcher)
+                .showImageForEmptyUri(R.drawable.ic_launcher)
+                .showImageOnFail(R.drawable.ic_launcher)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
                 .displayer(new RoundedBitmapDisplayer(20)).build();
 
-        Log.d("mylog", "ada 1");
-        holder.categoryName.setText(arrayListCategoryDish.get(position).getCategoryName());
-        Log.d("mylog", "ada 11" + arrayListCategoryDish.get(position).getCategoryName());
-        if (arrayListCategoryDish.get(position).getCategoryVal()==0){
-            holder.categoryVal.setText("");
-        }else {
-            holder.categoryVal.setText(arrayListCategoryDish.get(position).getCategoryVal().toString());
-        }
-
-        ImageLoader imageLoader = ImageLoader.getInstance(); // Получили экземпляр
+        imageLoader = ImageLoader.getInstance(); // Получили экземпляр
         imageLoader.init(ImageLoaderConfiguration.createDefault(context)); // Проинициализировали конфигом по умолчанию
-        imageLoader.displayImage(("http://sushi.s-pom.ru"+arrayListCategoryDish.get(position).getCategoryImage()), holder.categoryImage, options);
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater vi = LayoutInflater.from(parent.getContext());
+        View v = vi.inflate(R.layout.dish_list_item, parent, false);
+        return new ViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+
+        holder.dishName.setText(listDish.get(position).getDishName());
+        Log.d("mylog", "Выводим " + listDish.get(position).getDishName());
+
+        imageLoader.displayImage(("http://sushi.s-pom.ru" + listDish.get(position).getDishImage()), holder.dishImage, options);
         // Запустили асинхронный показ картинки
 
-        Log.d("mylog", "ada 2");
-        holder.categoryName.setOnClickListener(new View.OnClickListener() {
+        Log.d("mylog", "Картинка "+listDish.get(position).getDishImage());
+        holder.dishLoyout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mListener.onClick(view, position);
             }
         });
-        Log.d("mylog", "ada 3");
-        */
+        //Log.d("mylog", "ada 3");
     }
 
     @Override
     public int getItemCount() {
-        Log.d("mylog", "ada 4");
-        return arrayListCategoryDish.size();
+        Log.d("mylog", "Количество записей "+listDish.size());
+        return listDish.size();
     }
 
 }
