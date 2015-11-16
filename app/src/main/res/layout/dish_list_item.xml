@@ -44,7 +44,9 @@
         android:padding="1dip"
         android:clickable="true"
         android:background="#7000"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
 
     <TextView
@@ -56,7 +58,7 @@
         android:textStyle="bold"
         android:typeface="sans"
         android:text="fdgedrfg"
-        android:gravity="center"
+        android:gravity="left"
         android:maxLines="1"
         android:layout_above="@+id/tvPrice"
         android:layout_alignParentLeft="true"
@@ -66,35 +68,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_alignParentBottom="true"
         android:id="@+id/tvPrice"
         android:textSize="30dp"
         android:textColor="#ffff1000"
         android:text="13"
-        android:layout_alignLeft="@id/tvDishName"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/tvDishName"
+        android:layout_alignEnd="@+id/tvDishName"
+        android:layout_marginRight="97dp"
+        android:layout_marginEnd="97dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_toRightOf="@id/tvPrice"
-        android:layout_alignTop="@id/tvPrice"
         android:id="@+id/tvPriceCent"
         android:textSize="15dp"
         android:textColor="#ffff1000"
-        android:text="50"/>
+        android:text="50"
+        android:layout_below="@+id/tvDishName"
+        android:layout_alignLeft="@+id/tvPrice"
+        android:layout_alignStart="@+id/tvPrice"
+        android:layout_marginLeft="36dp"
+        android:layout_marginStart="36dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_toRightOf="@id/tvPriceCent"
-        android:layout_alignTop="@id/tvPrice"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="15dp"
         android:id="@+id/tvOldPrice"
         android:textSize="30dp"
         android:textColor="#ff70716f"
-        android:text="13" />
+        android:text="13"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/tvPriceCent"
+        android:layout_toEndOf="@+id/tvPriceCent"
+        android:layout_marginStart="15dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -114,7 +124,8 @@
         android:layout_alignLeft="@id/tvOldPrice"
         android:layout_alignBottom="@id/tvOldPrice"
         android:layout_alignRight="@id/tvOldPriceCent"
-        android:layout_marginBottom="17dp"/>
+        android:layout_marginBottom="17dp"
+        android:id="@+id/view" />
 
 
 

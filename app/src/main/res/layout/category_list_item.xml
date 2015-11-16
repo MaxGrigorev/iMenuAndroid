@@ -28,10 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:id="@+id/ivCategoryImage"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginBottom="1dp"
-        android:layout_marginTop="1dp"
         android:visibility="visible"
         android:layout_centerVertical="true"
         android:background="#FFFFFF"
@@ -43,14 +39,14 @@
         android:layout_height="wrap_content"
         android:textColor="#FFF"
         android:textSize="36sp"
-        android:textStyle="bold"
-        android:layout_marginLeft="1dp"
-        android:typeface="sans"
         android:text=""
-        android:background="#7000"
-        android:gravity="center"
+        android:background="#5e000000"
+        android:gravity="center_vertical|left"
         android:layout_alignParentBottom="true"
-        android:maxLines="1"/>
+        android:maxLines="1"
+        android:layout_alignTop="@+id/ivCategoryImage"
+        android:textStyle="normal"
+        android:padding="10dip"/>
 
     <TextView
         android:layout_width="wrap_content"
