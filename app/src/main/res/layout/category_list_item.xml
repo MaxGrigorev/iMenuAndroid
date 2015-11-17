@@ -33,20 +33,33 @@
         android:background="#FFFFFF"
         />
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:id="@+id/rlDishDataLoyout"
+        android:padding="1dip"
+        android:clickable="true"
+        android:background="#5e000000"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true">
+
     <TextView
         android:id="@+id/tvCategoryName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#FFF"
         android:textSize="36sp"
-        android:text=""
-        android:background="#5e000000"
+        android:text="Категория"
         android:gravity="center_vertical|left"
-        android:layout_alignParentBottom="true"
         android:maxLines="1"
-        android:layout_alignTop="@+id/ivCategoryImage"
         android:textStyle="normal"
-        android:padding="10dip"/>
+        android:padding="10dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -55,10 +68,10 @@
         android:id="@+id/tvCategoryVal"
         android:textSize="15dp"
         android:text=""
-        android:layout_alignTop="@+id/ivCategoryImage"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        />
 
 
-
+    </RelativeLayout>
 </RelativeLayout>
