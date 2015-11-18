@@ -62,7 +62,7 @@
         android:text="Блюдо"
         android:gravity="left"
         android:maxLines="1"
-        android:layout_above="@+id/tvPrice"
+        android:layout_above="@+id/tvDishPreview"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -75,8 +75,25 @@
         android:textStyle="normal"
         android:paddingLeft="10dip"
         android:gravity="left"
+        android:maxLines="2"
+        android:id="@+id/tvDishPreview"
+        android:layout_above="@+id/tvDishInfo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/tvPrice"
+        android:layout_toStartOf="@+id/tvPrice" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Preview"
+        android:textColor="#FFF"
+        android:textStyle="normal"
+        android:paddingLeft="10dip"
+        android:typeface="sans"
         android:id="@+id/tvDishInfo"
-        android:layout_below="@+id/tvDishName"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -87,65 +104,22 @@
         android:id="@+id/tvPrice"
         android:textSize="30dp"
         android:textColor="#ffff1000"
-        android:text="13"
+        android:text="Цена"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/tvDishName"
-        android:layout_alignEnd="@+id/tvDishName"
-        android:layout_marginRight="97dp"
-        android:layout_marginEnd="97dp" />
+        android:layout_toLeftOf="@+id/textView2"
+        android:layout_toStartOf="@+id/textView2" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/tvPriceCent"
-        android:textSize="15dp"
-        android:textColor="#ffff1000"
-        android:text="50"
-        android:layout_below="@+id/tvDishName"
-        android:layout_alignLeft="@+id/tvPrice"
-        android:layout_alignStart="@+id/tvPrice"
-        android:layout_marginLeft="36dp"
-        android:layout_marginStart="36dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_marginLeft="15dp"
-        android:id="@+id/tvOldPrice"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text=" Р"
+        android:id="@+id/textView2"
         android:textSize="30dp"
-        android:textColor="#ff70716f"
-        android:text="13"
+        android:textColor="#ffff1000"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/tvPriceCent"
-        android:layout_toEndOf="@+id/tvPriceCent"
-        android:layout_marginStart="15dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_toRightOf="@id/tvOldPrice"
-        android:layout_alignTop="@id/tvOldPrice"
-        android:id="@+id/tvOldPriceCent"
-        android:textSize="15dp"
-        android:textColor="#ff70716f"
-        android:text="50"/>
-
-    <View
-        android:layout_width="wrap_content"
-        android:background="@drawable/shape_line"
-        android:layout_height="5dp"
-        android:layout_alignLeft="@id/tvOldPrice"
-        android:layout_alignBottom="@id/tvOldPrice"
-        android:layout_alignRight="@id/tvOldPriceCent"
-        android:layout_marginBottom="17dp"
-        android:id="@+id/view" />
-
-
-
-
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
 </RelativeLayout>

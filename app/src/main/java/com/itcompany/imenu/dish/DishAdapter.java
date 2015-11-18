@@ -60,9 +60,8 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView dishName;
         public final TextView priceRub;
-        public final TextView priceCent;
-        public final TextView oldPriceRub;
-        public final TextView oldPriceCent;
+        public final TextView dishInfo;
+        public final TextView dishPreview;
         public final ImageView dishImage;
         public final RelativeLayout dishLoyout;
 
@@ -74,9 +73,8 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
             // проставляем данные для элементов
             dishName = (TextView)itemView.findViewById(R.id.tvDishName);
             priceRub = (TextView)itemView.findViewById(R.id.tvPrice);
-            priceCent = (TextView)itemView.findViewById(R.id.tvPriceCent);
-            oldPriceRub = (TextView)itemView.findViewById(R.id.tvOldPrice);
-            oldPriceCent = (TextView)itemView.findViewById(R.id.tvOldPriceCent);
+            dishInfo = (TextView)itemView.findViewById(R.id.tvDishInfo);
+            dishPreview = (TextView)itemView.findViewById(R.id.tvDishPreview);
             dishLoyout=(RelativeLayout)itemView.findViewById(R.id.rlDishLoyout);
             dishImage = (ImageView)itemView.findViewById(R.id.ivDishImage);
 
@@ -114,6 +112,9 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
 
         holder.dishName.setText(listDish.get(position).getDishName());
         Log.d("mylog", "Выводим " + listDish.get(position).getDishName());
+        holder.dishInfo.setText(listDish.get(position).getDishInfo());
+        holder.dishPreview.setText(listDish.get(position).getDishPreview());
+        holder.priceRub.setText(listDish.get(position).getDishPrice());
 
         imageLoader.displayImage(("http://sushi.s-pom.ru" + listDish.get(position).getDishImage()), holder.dishImage, options);
         // Запустили асинхронный показ картинки

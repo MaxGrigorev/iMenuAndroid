@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import com.itcompany.imenu.category.CategoryAdapter;
 import com.itcompany.imenu.category.CategoryAsyncTask;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DishList extends AppCompatActivity implements DishAsyncTask.AsyncResponse, DishAdapter.OnItemClickListener {
 
@@ -36,9 +38,10 @@ public class DishList extends AppCompatActivity implements DishAsyncTask.AsyncRe
         //getActionBar().setDisplayHomeAsUpEnabled(true);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        List<CategoryDish> listCategoryDish = CategoryDish.listAll(CategoryDish.class);
         //toolbar.setNavigationIcon(R.drawable.ic_launcher);
-        //toolbar.setTitle("Title");
+        Log.d("mylog2", "set title " + listCategoryDish.get(position).getCategoryName());
+        getSupportActionBar().setTitle(listCategoryDish.get(position).getCategoryName());
         //toolbar.setSubtitle("Sub");
         //toolbar.setLogo(R.drawable.ic_launcher);
 

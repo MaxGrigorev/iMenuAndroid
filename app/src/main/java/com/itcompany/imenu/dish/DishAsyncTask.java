@@ -46,11 +46,14 @@ public class DishAsyncTask extends AsyncTask<Integer, Void, AsyncTaskResult> {
         Integer position=0;
         Document doc = null;
         Connection conJs;
+        Elements elementsDish;
         Elements elementsDishName;
         Elements elementsDishImg;
         Elements elementsDishPrice;
         Elements elementsDishInfo;
         Elements elementsDishPreview;
+
+        Elements elementsImg;
 
         if( params.length > 0 ){
             position = params[0];
@@ -62,37 +65,30 @@ public class DishAsyncTask extends AsyncTask<Integer, Void, AsyncTaskResult> {
                 //Проходимся по ссылкам категории
                 conJs=Jsoup.connect("http://sushi.s-pom.ru" + url);
                 doc = conJs.get();
-                elementsDishName = doc.select("div#item li h3,div#item li h2");
-                elementsDishImg = doc.select("div#item img");//может быть одна картинка
-                elementsDishPrice = doc.select("div#item li span.price");
-                elementsDishInfo = doc.select("div#item li p.product-info");
-                elementsDishPreview = doc.select("div#item li p.product-preview");
+                elementsImg = doc.select("div#item img");//может быть одна картинка
 
-                if (elementsDishImg.size()==1){
-                    for(int i=0; i<elementsDishName.size(); i++){
-                        dish=new Dish();
-                        dish.setDishName(elementsDishName.eq(i).text());
-                        Log.d("mylog1", "dish name " + elementsDishName.eq(i).text());
-                        dish.setDishImage(elementsDishImg.eq(0).attr("src"));
-                        dish.setDishPrice(elementsDishPrice.eq(i).text());
-                        Log.d("mylog1", "dish price " + elementsDishPrice.eq(i).text());
-                        dish.setDishInfo(elementsDishInfo.eq(i).text());
-                        dish.setDishPreview(elementsDishPreview.eq(i).text());
-                        dish.save();
-                    }
+                elementsDish=doc.select("div#item li");
+                for(int i=0; i<elementsDish.size(); i++) {
+                    elementsDishImg = elementsDish.eq(i).select("img");
+                    elementsDishName = elementsDish.eq(i).select("h3,h2");
+                    elementsDishPrice = elementsDish.eq(i).select("span.price");
+                    elementsDishInfo = elementsDish.eq(i).select("p.product-info");
+                    elementsDishPreview = elementsDish.eq(i).select("p.product-preview");
 
-                }else{
-                    for(int i=0; i<elementsDishName.size(); i++){
-                        dish=new Dish();
-                        dish.setDishName(elementsDishName.eq(i).text());
-                        Log.d("mylog1", "dish name " + elementsDishName.eq(i).text());
-                        dish.setDishImage(elementsDishImg.eq(i).attr("src"));
-                        dish.setDishPrice(elementsDishPrice.eq(i).text());
-                        dish.setDishInfo(elementsDishInfo.eq(i).text());
-                        dish.setDishPreview(elementsDishPreview.eq(i).text());
-                        dish.save();
+                    dish=new Dish();
+                    dish.setDishName(elementsDishName.text());
+                    Log.d("mylog1", "dish name " + elementsDishName.text());
+                    if (elementsImg.size()==1){
+                        dish.setDishImage(elementsImg.attr("src"));
+                    }else {
+                        dish.setDishImage(elementsDishImg.attr("src"));
                     }
+                    dish.setDishPrice(elementsDishPrice.text());
+                    dish.setDishInfo(elementsDishInfo.text());
+                    dish.setDishPreview(elementsDishPreview.text());
+                    dish.save();
                 }
+
         }
         catch (HttpStatusException e) {
             asyncTaskResult.setError(1);
