@@ -18,7 +18,8 @@ import com.itcompany.imenu.R;
 public class CategoryList extends AppCompatActivity implements CategoryAdapter.OnItemClickListener  {
 
     CategoryAdapter mAdapter;
-
+    RecyclerView mRecyclerView;
+    int scrollPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +27,14 @@ public class CategoryList extends AppCompatActivity implements CategoryAdapter.O
         setContentView(R.layout.category);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mAdapter = new CategoryAdapter(this,this);
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
 
+        //mRecyclerView.scrollToPosition(11);
 
 
     }
@@ -55,11 +57,13 @@ public class CategoryList extends AppCompatActivity implements CategoryAdapter.O
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+
+            case R.id.action_settings:
+                Log.d("mylog2", "R.id.action_settings ");
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -76,4 +80,5 @@ public class CategoryList extends AppCompatActivity implements CategoryAdapter.O
 
         startActivity(intent);
     }
+
 }

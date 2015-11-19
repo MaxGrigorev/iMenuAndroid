@@ -75,9 +75,16 @@ public class DishList extends AppCompatActivity implements DishAsyncTask.AsyncRe
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                //NavUtils.navigateUpFromSameTask(this);
+                Log.d("mylog2", "android.R.id.home ");
+                onBackPressed();
+                return true;
+            case R.id.action_settings:
+                Log.d("mylog2", "R.id.action_settings ");
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
