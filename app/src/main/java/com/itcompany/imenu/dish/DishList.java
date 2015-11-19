@@ -40,8 +40,6 @@ public class DishList extends AppCompatActivity implements DishAsyncTask.AsyncRe
         setSupportActionBar(toolbar);
         List<CategoryDish> listCategoryDish = CategoryDish.listAll(CategoryDish.class);
         //toolbar.setNavigationIcon(R.drawable.ic_launcher);
-        Log.d("mylog2", "set title " + listCategoryDish.get(position).getCategoryName());
-        getSupportActionBar().setTitle(listCategoryDish.get(position).getCategoryName());
         //toolbar.setSubtitle("Sub");
         //toolbar.setLogo(R.drawable.ic_launcher);
 
@@ -49,6 +47,7 @@ public class DishList extends AppCompatActivity implements DishAsyncTask.AsyncRe
         if (actionBar != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle(listCategoryDish.get(position).getCategoryName());
         }
 
         //Отчищаем таблицу Блюда
